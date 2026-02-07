@@ -3,16 +3,11 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval, getWeek, isSameDay
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HabitCell } from './HabitCell';
-import { Habit } from '@/hooks/useLocalHabits';
+import { useEnhancedHabits } from '@/hooks/useEnhancedHabits';
 import { cn } from '@/lib/utils';
 
-interface MonthlyGridProps {
-  habits: Habit[];
-  isCompleted: (habitId: string, date: string) => boolean;
-  toggleLog: (habitId: string, date: string) => void;
-}
-
-export function MonthlyGrid({ habits, isCompleted, toggleLog }: MonthlyGridProps) {
+export function MonthlyGrid() {
+  const { habitsWithStats, isCompleted, toggleLog, isLoaded } = useEnhancedHabits();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const today = new Date();
 
@@ -50,7 +45,15 @@ export function MonthlyGrid({ habits, isCompleted, toggleLog }: MonthlyGridProps
   const goToNextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
   const goToToday = () => setCurrentMonth(new Date());
 
-  if (habits.length === 0) {
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (habitsWithStats.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
         <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
@@ -58,7 +61,7 @@ export function MonthlyGrid({ habits, isCompleted, toggleLog }: MonthlyGridProps
         </div>
         <h3 className="text-lg font-medium text-foreground mb-2">No habits yet</h3>
         <p className="text-muted-foreground text-sm max-w-xs">
-          Go to Settings to add your first habit and start tracking!
+          Go to Dashboard or Settings to add your first habit and start tracking!
         </p>
       </div>
     );
@@ -121,7 +124,7 @@ export function MonthlyGrid({ habits, isCompleted, toggleLog }: MonthlyGridProps
           </div>
 
           {/* Habit Rows */}
-          {habits.map((habit) => (
+          {habitsWithStats.map((habit) => (
             <div key={habit.id} className="flex items-center mb-2 group">
               {/* Habit Name */}
               <div className="w-32 md:w-40 shrink-0 pr-3">
