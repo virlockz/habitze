@@ -3,16 +3,11 @@ import { format, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addWeeks,
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HabitCell } from './HabitCell';
-import { Habit } from '@/hooks/useLocalHabits';
+import { useEnhancedHabits } from '@/hooks/useEnhancedHabits';
 import { cn } from '@/lib/utils';
 
-interface WeeklyGridProps {
-  habits: Habit[];
-  isCompleted: (habitId: string, date: string) => boolean;
-  toggleLog: (habitId: string, date: string) => void;
-}
-
-export function WeeklyGrid({ habits, isCompleted, toggleLog }: WeeklyGridProps) {
+export function WeeklyGrid() {
+  const { habitsWithStats, isCompleted, toggleLog, isLoaded } = useEnhancedHabits();
   const [currentWeekStart, setCurrentWeekStart] = useState(() => 
     startOfWeek(new Date(), { weekStartsOn: 1 })
   );
@@ -31,7 +26,15 @@ export function WeeklyGrid({ habits, isCompleted, toggleLog }: WeeklyGridProps) 
   const goToNextWeek = () => setCurrentWeekStart(addWeeks(currentWeekStart, 1));
   const goToThisWeek = () => setCurrentWeekStart(startOfWeek(new Date(), { weekStartsOn: 1 }));
 
-  if (habits.length === 0) {
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (habitsWithStats.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
         <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
@@ -39,7 +42,7 @@ export function WeeklyGrid({ habits, isCompleted, toggleLog }: WeeklyGridProps) 
         </div>
         <h3 className="text-lg font-medium text-foreground mb-2">No habits yet</h3>
         <p className="text-muted-foreground text-sm max-w-xs">
-          Go to Settings to add your first habit and start tracking!
+          Go to Dashboard or Settings to add your first habit and start tracking!
         </p>
       </div>
     );
@@ -101,7 +104,7 @@ export function WeeklyGrid({ habits, isCompleted, toggleLog }: WeeklyGridProps) 
         </div>
 
         {/* Habit Rows */}
-        {habits.map((habit) => (
+        {habitsWithStats.map((habit) => (
           <div key={habit.id} className="grid grid-cols-8 gap-2 mb-3 items-center">
             {/* Habit Name */}
             <div className="col-span-1 pr-2">

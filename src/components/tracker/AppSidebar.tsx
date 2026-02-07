@@ -1,4 +1,4 @@
-import { Calendar, CalendarDays, Settings, Menu } from 'lucide-react';
+import { Calendar, CalendarDays, Settings, LayoutDashboard, TrendingUp } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   Sidebar,
@@ -9,14 +9,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
-  SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 
 const navItems = [
+  { title: 'Dashboard', url: '/dashboard', icon: LayoutDashboard },
   { title: 'Monthly', url: '/monthly', icon: Calendar },
   { title: 'Weekly', url: '/weekly', icon: CalendarDays },
+  { title: 'Progress', url: '/progress', icon: TrendingUp },
   { title: 'Settings', url: '/settings', icon: Settings },
 ];
 
@@ -36,10 +37,10 @@ export function AppSidebar() {
       <SidebarHeader className="p-4 border-b border-border">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Calendar className="w-4 h-4 text-primary-foreground" />
+            <span className="text-primary-foreground text-sm">🌱</span>
           </div>
           {!collapsed && (
-            <span className="font-semibold text-foreground text-lg">Habits</span>
+            <span className="font-display font-semibold text-foreground text-lg">Habits</span>
           )}
         </div>
       </SidebarHeader>
