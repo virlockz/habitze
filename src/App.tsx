@@ -11,6 +11,7 @@ import Weekly from "./pages/Weekly";
 import ProgressPage from "./pages/ProgressPage";
 import EnhancedSettingsPage from "./pages/EnhancedSettingsPage";
 import NotFound from "./pages/NotFound";
+import { ReportPrompt } from "@/components/habits/ReportPrompt";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <ReportPrompt />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
