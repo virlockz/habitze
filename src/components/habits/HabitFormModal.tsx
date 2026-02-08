@@ -289,8 +289,7 @@ export function HabitFormModal({
             <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
               Cancel
             </Button>
-            <Button type="submit" className="flex-1 gap-2">
-              <Sparkles className="w-4 h-4" />
+            <Button type="submit" className="flex-1">
               {mode === 'create' ? 'Create Habit' : 'Save Changes'}
             </Button>
           </div>
