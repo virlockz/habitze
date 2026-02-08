@@ -167,7 +167,7 @@ export default function EnhancedSettingsPage() {
               type="color"
               value={newCategoryColor}
               onChange={(e) => setNewCategoryColor(e.target.value)}
-              className="w-10 h-10 rounded-lg cursor-pointer border border-border"
+              className="w-10 h-10 rounded-full cursor-pointer border-2 border-success bg-success/20"
             />
           </div>
           <Button type="submit" disabled={!newCategoryName.trim()}>
