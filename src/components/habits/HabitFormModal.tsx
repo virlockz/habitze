@@ -138,7 +138,7 @@ export function HabitFormModal({
           <div className="space-y-3 p-4 rounded-lg bg-secondary/50 border border-border">
             <div className="flex items-center gap-2 text-sm font-medium text-foreground">
               <Link2 className="w-4 h-4 text-primary" />
-              Habit Stacking
+              Habit Stacking <span className="text-xs text-muted-foreground font-normal">(Optional)</span>
             </div>
             <p className="text-xs text-muted-foreground">
               Link this habit to an existing routine for better consistency
@@ -171,7 +171,7 @@ export function HabitFormModal({
           <div className="space-y-2 p-4 rounded-lg bg-secondary/50 border border-border">
             <div className="flex items-center gap-2 text-sm font-medium text-foreground">
               <Clock className="w-4 h-4 text-primary" />
-              2-Minute Entry Action
+              2-Minute Entry Action <span className="text-xs text-muted-foreground font-normal">(Optional)</span>
             </div>
             <p className="text-xs text-muted-foreground">
               What's the smallest version you can start with?
@@ -187,7 +187,7 @@ export function HabitFormModal({
           <div className="space-y-2 p-4 rounded-lg bg-secondary/50 border border-border">
             <div className="flex items-center gap-2 text-sm font-medium text-foreground">
               <MapPin className="w-4 h-4 text-primary" />
-              Context Cue
+              Context Cue <span className="text-xs text-muted-foreground font-normal">(Optional)</span>
             </div>
             <p className="text-xs text-muted-foreground">
               Where and when will you perform this habit?
